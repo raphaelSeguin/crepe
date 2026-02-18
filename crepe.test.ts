@@ -4,6 +4,7 @@ import { describe, test, expect } from "vitest"
   * en programmation fonctionnelle
   * aucune méthode d'Array n'est utilisée dans la version finale
   * extrêmement sous optimal 
+  * ... est-il possible de supprimer les spread ? et les Array ?!!!
   */
 
 describe("Tri de crêpes", () => {
@@ -59,7 +60,6 @@ describe("Tri de crêpes", () => {
     test("Trier beaucoup crêpes", () => {
       const beaucoupCrepes = Array.from({ length: 100 }, () => Math.floor(Math.random() * 1000))
       const result = trieLesCrepes(beaucoupCrepes)
-      console.log(result)
       expect(isSorted(result)).toBe(true)
     })
   })
