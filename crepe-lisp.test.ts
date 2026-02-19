@@ -20,18 +20,18 @@ function cons<T>(el: T, suite: List<T> = null): List<T> {
 }
 
 function first<T>(list: List<T>): T | null {
-  if (!list) return null
+  if (isEmpty(list)) return null
   const { el } = list
   return el
 }
 
 function takeFrom<T>(list: List<T>, n: number): List<T> {
-  if (!list || n === 0) return list
+  if (isEmpty(list) || n === 0) return list
   return takeFrom(list.suite, n - 1)
 }
 
 function takeTo<T>(list: List<T>, n: number): List<T> {
-  if (!list) return list
+  if (isEmpty(list)) return list
   if (n === 0) return null
   return {
     el: first(list)!,
@@ -40,30 +40,30 @@ function takeTo<T>(list: List<T>, n: number): List<T> {
 }
 
 function last<T>(list: List<T>): T | null {
-  return !list
+  return isEmpty(list)
     ? list
-    : !list.suite
+    : isEmpty(list.suite)
       ? list.el
       : last(list.suite)
 }
 
 function length<T>(list: List<T>): number {
-  return !list ? 0 : 1 + length(list.suite)
+  return isEmpty(list) ? 0 : 1 + length(list.suite)
 }
 
 function reverse<T>(list: List<T>): List<T> {
-  return !list
+  return isEmpty(list)
     ? list
     : cons(last(list)!, reverse(takeTo(list, length(list) - 1)))
 }
 
 function findMaxPosition(list: List<number>): number {
   function f(list: List<number>, max: number = -Infinity, maxPosition: number = 0, position: number = 0): number {
-    return !list
+    return isEmpty(list)
       ? maxPosition
       : f(
         list.suite,
-        max >= list.el! ? max : list.el!,
+        max >= list.el ? max : list.el,
         max >= list.el ? maxPosition : position,
         position + 1
       )
@@ -72,9 +72,13 @@ function findMaxPosition(list: List<number>): number {
 }
 
 function stack<T>(listA: List<T>, listB: List<T>): List<T> {
-  if (!listB) return listA
-  if (!listA) return listB
+  if (isEmpty(listB)) return listA
+  if (isEmpty(listA)) return listB
   return cons(listA.el, listA.suite ? stack(listA.suite, listB) : listB)
+}
+
+function isEmpty<T>(list: List<T>): list is null {
+  return list === null
 }
 
 function spatule<T>(list: List<T>, position: number): List<T> {
@@ -85,7 +89,7 @@ function trieLesCrepes(crepes: List<number>): List<number> {
   if (length(crepes) < 2) return crepes
   const maxPosition = findMaxPosition(crepes)
   const pileTriee = spatule(spatule(crepes, maxPosition + 1), length(crepes))
-  return stack(trieLesCrepes(takeTo(pileTriee, length(pileTriee) - 1)), cons(last(pileTriee)!, null))
+  return stack(trieLesCrepes(takeTo(pileTriee, length(pileTriee) - 1)), cons(last(pileTriee)!))
 }
 
 describe("Tri de crêpes sans Array", () => {
@@ -135,6 +139,10 @@ describe("Tri de crêpes sans Array", () => {
       const crepes = cons(1, cons(2, cons(3, cons(4, cons(5)))))
       expect(spatule(crepes, 3)).toEqual(cons(3, cons(2, cons(1, cons(4, cons(5)))))
       )
+    })
+    test("Reconnaitre une pile vide", () => {
+      const pileVide = null
+      expect(isEmpty(pileVide)).toBe(true)
     })
   })
   describe("Tri des crêpes", () => {

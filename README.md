@@ -1,6 +1,6 @@
 # Tri de crêpes 🥞
 
-Après le dojo du mardi 18 février 2026 (Mardi Gras) chez Arolla en compagnie de Patrick, Christelle, Octavi, Ubald et Damien ([le repo du meetup](https://github.com/dojo-developpement-paris/dojo-developpement-paris.github.io)), nous avons débrieffé en utilisant le tableau blanc plutôt que le code pour discutter. Nous nous sommes rapidement aperçus que nous étions passé à côté d'une possibilité offerte par la programmation fonctionnelle : la composition. J'ai voulu continuer à explorer l'exerice et implémenter cet algorighme en programmation fonctionnelle, sans utiliser aucune des méthodes de Array (on s'autorise le spread et la lecture d'un index). Dans un deuxième temps, j'ai exégéré la contrainte jusqu'à ne pas utiliser Array du tout et créer à la place une liste chainée dans le style de Lisp.
+Après le dojo du mardi 18 février 2026 (Mardi Gras) chez Arolla en compagnie de Patrick, Christelle, Octavi, Ubald et Damien ([le repo du meetup](https://github.com/dojo-developpement-paris/dojo-developpement-paris.github.io)), nous avons débrieffé en utilisant le tableau blanc plutôt que le code pour discutter. Nous nous sommes rapidement aperçus que nous étions passés à côté d'une possibilité offerte par la programmation fonctionnelle : la composition. J'ai voulu continuer à explorer l'exerice et implémenter cet algorighme en programmation fonctionnelle, sans utiliser aucune des méthodes de Array (on s'autorise le spread et la lecture d'un index). Dans un deuxième temps, j'ai exégéré la contrainte jusqu'à ne pas utiliser Array du tout et créer à la place une liste chainée dans le style de Lisp.
 
 ## Présentation de l'algorithme
 
@@ -27,6 +27,11 @@ C'est terminé, la pile est triée.
 Au maximum il faut 2 opérations pour trier une crêpe dans la pile. La dernière crêpe est d'emblée triée avec l'avant dernière, on peut donc retirer 2 opérations. L'avant dernière crêpe peut être triée avec au maximum une seule opération puisqu'elle sera soit bien placée, soit déjà au-dessus. Par conséquent, la pile sera triée en 2n - 3 opérations au maximum.
 
 ### La suite (to do)
+
+#### TODO 
+
+- Améliorer le typage pour ne plus être obligé d'utiliser le Non-null assertion opertaor ("!").
+- Utiliser autre chose que null pour une liste vide. 
 
 #### Variantes
 
